@@ -49,8 +49,6 @@ const startGameInterval = (roomName) => {
   const intervalId = setInterval(() => {
     const winner = gameLoop(state[roomName]);
 
-    console.log('winner', winner);
-
     if (!winner) {
       emitGameState(roomName, state[roomName]);
     } else {

@@ -45,7 +45,6 @@ const gameLoop = (state) => {
 
     if (player.stats.health <= 0) {
       state.players[player.id - 1].alive = false;
-      console.log(state);
     }
   });
 
