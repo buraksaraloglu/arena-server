@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "lint": "eslint --fix src",
     "test": "mocha --exit"
