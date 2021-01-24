@@ -1,12 +1,15 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-param-reassign */
-const app = require('express')();
-const http = require('http').createServer(app);
-const io = require('socket.io')(http, {
+const corsOptions = {
+  transport: ['websocket'],
   cors: {
     origin: '*',
   },
-});
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+const app = require('express')();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http, corsOptions);
 
 const { initGame, gameLoop, getUpdatedVelocity, handleAttack } = require('./game');
 const { FRAME_RATE } = require('./constants');
