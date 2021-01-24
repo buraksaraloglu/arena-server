@@ -1,0 +1,11 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb-base", "prettier"],
+  "plugin": ["prettier", "import"],
+  "prettierOptions": {
+    "bracketSpacing": true
+  },
+  "fallbackPrettierOptions": {
+    "singleQuote": false
+  }
+}
