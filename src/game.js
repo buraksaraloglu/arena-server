@@ -55,8 +55,6 @@ const gameLoop = (state) => {
     return alivePlayers[0];
   }
 
-  console.log(alivePlayers);
-
   return false;
 };
 
