@@ -48,7 +48,11 @@ const enemyNearby = (room, player) => {
       (player.pos.x - target.pos.x === 0 && player.pos.y - target.pos.y === -1) ||
       (player.pos.x - target.pos.x === 0 && player.pos.y - target.pos.y === 1) ||
       (player.pos.x - target.pos.x === -1 && player.pos.y - target.pos.y === 0) ||
-      (player.pos.x - target.pos.x === 1 && player.pos.y - target.pos.y === 0)
+      (player.pos.x - target.pos.x === 1 && player.pos.y - target.pos.y === 0) ||
+      (player.pos.x - target.pos.x === -1 && player.pos.y - target.pos.y === -1) ||
+      (player.pos.x - target.pos.x === 1 && player.pos.y - target.pos.y === -1) ||
+      (player.pos.x - target.pos.x === -1 && player.pos.y - target.pos.y === 1) ||
+      (player.pos.x - target.pos.x === 1 && player.pos.y - target.pos.y === 1)
     );
   });
 };

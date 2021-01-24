@@ -32,11 +32,6 @@ const gameLoop = (state) => {
     return;
   }
 
-  // const playerOne = state.players[0];
-  // const playerTwo = state.players[1];
-  // const playerThree = state.players[2];
-  // const playerFour = state.players[3];
-
   state.players.map((player) => {
     if (player.alive) {
       playerMove(player);
