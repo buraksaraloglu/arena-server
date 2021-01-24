@@ -8,7 +8,7 @@ const io = require('socket.io')(http, {
   },
 });
 
-const { initGame, gameLoop, getUpdatedVelocity } = require('./game');
+const { initGame, gameLoop, getUpdatedVelocity, handleAttack } = require('./game');
 const { FRAME_RATE } = require('./constants');
 const { makeId } = require('./utils');
 const newPlayer = require('./helpers/newPlayer');
@@ -49,6 +49,8 @@ const startGameInterval = (roomName) => {
   const intervalId = setInterval(() => {
     const winner = gameLoop(state[roomName]);
 
+    console.log('winner', winner);
+
     if (!winner) {
       emitGameState(roomName, state[roomName]);
     } else {
@@ -74,8 +76,12 @@ io.on('connection', (client) => {
       console.error(error);
       return;
     }
-
-    const velocity = getUpdatedVelocity(clientKeyCode);
+    let velocity;
+    if (keyCode === 32) {
+      handleAttack(state[roomName], client);
+    } else {
+      velocity = getUpdatedVelocity(clientKeyCode);
+    }
 
     if (velocity) {
       state[roomName].players[client.number - 1].vel = velocity;

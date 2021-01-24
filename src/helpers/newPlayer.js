@@ -37,6 +37,7 @@ const newPlayer = (id, username) => {
       stamina: 100,
       power: 0,
     },
+    alive: true,
   };
 };
 
