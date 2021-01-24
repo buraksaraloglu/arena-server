@@ -24,8 +24,10 @@ const reduceStamina = (player) => {
     playerStats.stamina -= 10;
   }
 
-  if (playerStats.stamina < 40) {
+  if (playerStats.stamina < 40 && playerStats.stamina !== 0) {
     playerStats.health -= 5;
+  } else if (playerStats.stamina === 0) {
+    playerStats.health -= 10;
   }
 
   if (!cooldowns[player.id]) {
@@ -43,7 +45,7 @@ const reduceStamina = (player) => {
 };
 
 const enemyNearby = (room, player) => {
-  return room.players.find((target) => {
+  return room.players.filter((target) => {
     return (
       (player.pos.x - target.pos.x === 0 && player.pos.y - target.pos.y === -1) ||
       (player.pos.x - target.pos.x === 0 && player.pos.y - target.pos.y === 1) ||
@@ -60,13 +62,15 @@ const enemyNearby = (room, player) => {
 const handleDamage = (room, player) => {
   const target = enemyNearby(room, player);
   if (target) {
-    if (target.stats.health > 5 && player.stats.stamina >= 30) {
-      target.stats.health -= player.stats.power || 5;
-    } else if (player.stats.stamina && player.stats.stamina < 30) {
-      target.stats.health -= 5;
-    } else {
-      target.stats.health = 0;
-    }
+    target.map((targetPlayer) => {
+      if (targetPlayer.stats.health > 5 && player.stats.stamina >= 30) {
+        targetPlayer.stats.health -= player.stats.power || 5;
+      } else if (player.stats.stamina && player.stats.stamina < 30) {
+        targetPlayer.stats.health -= 5;
+      } else {
+        targetPlayer.stats.health = 0;
+      }
+    });
   }
 };
 
