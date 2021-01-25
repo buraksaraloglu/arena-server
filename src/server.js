@@ -2,12 +2,6 @@
 /* eslint-disable no-param-reassign */
 const corsOptions = {
   cors: {
-    allowUpgrades: true,
-    transports: ['polling', 'websocket'],
-    pingTimeout: 9000,
-    pingInterval: 3000,
-    cookie: 'mycookie',
-    httpCompression: true,
     origins: '*',
   },
 };
