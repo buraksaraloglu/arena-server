@@ -61,9 +61,9 @@ const startGameInterval = (roomName) => {
     if (!winner) {
       emitGameState(roomName, state[roomName]);
     } else {
-      emitGameOver(roomName, winner);
-      state[roomName] = null;
       clearInterval(intervalId);
+      state[roomName] = null;
+      emitGameOver(roomName, winner);
     }
   }, 1000 / FRAME_RATE);
 };
