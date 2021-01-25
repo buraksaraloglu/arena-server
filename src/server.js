@@ -123,6 +123,7 @@ io.on('connection', (client) => {
     }
     if (numClients > 4) {
       client.emit('tooManyPlayers');
+      client.emit('joined', false);
       return;
     }
 
