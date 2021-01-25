@@ -1,11 +1,9 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-param-reassign */
 const corsOptions = {
-  transport: ['websocket'],
   cors: {
-    origin: '*',
+    origin: 'https://arena-bs.netlify.app/',
   },
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 const app = require('express')();
 const http = require('http').createServer(app);
