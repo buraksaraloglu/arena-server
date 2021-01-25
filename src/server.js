@@ -1,14 +1,30 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-param-reassign */
-const corsOptions = {
-  cors: {
-    origin: 'https://arena-bs.netlify.app:*',
-    methods: ['GET', 'POST'],
-  },
-};
+// const corsOptions = {
+//   cors: {
+//     origin: 'https://arena-bs.netlify.app/',
+//     methods: ['GET', 'POST'],
+//   },
+// };
 const app = require('express')();
 const http = require('http').createServer(app);
-const io = require('socket.io')(http, corsOptions);
+const io = require('socket.io')(http);
+
+io.configure('production', function () {
+  io.enable('browser client minification'); // send minified client
+  io.enable('browser client etag'); // apply etag caching logic based on version number
+  io.enable('browser client gzip'); // the file
+  io.set('log level', 1); // logging
+  io.set('transports', [
+    // all transports (optional if you want flashsocket)
+    'websocket',
+    'flashsocket',
+    'htmlfile',
+    'xhr-polling',
+    'jsonp-polling',
+  ]);
+  io.set('origins', 'https://arena-bs.netlify.app:*');
+});
 
 const { initGame, gameLoop, getUpdatedVelocity, handleAttack } = require('./game');
 const { FRAME_RATE } = require('./constants');
