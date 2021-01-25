@@ -2,7 +2,8 @@
 /* eslint-disable no-param-reassign */
 const corsOptions = {
   cors: {
-    origin: 'https://arena-bs.netlify.app/',
+    origin: ['https://arena-bs.netlify.app/', '*'],
+    methods: ['GET', 'POST'],
   },
 };
 const app = require('express')();
