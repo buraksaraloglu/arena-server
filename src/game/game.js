@@ -1,10 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-param-reassign */
 /* eslint-disable consistent-return */
-const { GRID_SIZE } = require('./constants');
-const { playerMove, reduceStamina, handleDamage } = require('./helpers/playerMove');
-const foodCheck = require('./helpers/foodCheck');
-const newFood = require('./helpers/newFood');
+const { GRID_SIZE } = require('../constants');
+const { playerMove, reduceStamina, handleDamage } = require('../player/playerMove');
+const foodCheck = require('../helpers/foodCheck');
+const newFood = require('./newFood');
+const getUpdatedVelocity = require('../helpers/getUpdatedVelocity');
 
 const createGameState = () => ({
   players: [],
@@ -58,37 +59,8 @@ const initGame = () => {
   return state;
 };
 
-const getUpdatedVelocity = (keyCode) => {
-  switch (keyCode) {
-    case 37:
-      // Left
-      return { x: -1, y: 0 };
-    case 38:
-      // Down
-      return { x: 0, y: -1 };
-    case 39:
-      // Right
-      return { x: 1, y: 0 };
-    case 40:
-      // Up
-      return { x: 0, y: 1 };
-    default:
-      break;
-  }
-};
-
-const handleAttack = (room, client) => {
-  const player = room.players[client.number - 1];
-
-  if (player) {
-    reduceStamina(player);
-    handleDamage(room, player);
-  }
-};
-
 module.exports = {
   initGame,
   gameLoop,
   getUpdatedVelocity,
-  handleAttack,
 };

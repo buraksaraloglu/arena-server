@@ -17,10 +17,11 @@ const http = require('http').createServer(app, (req, res) => {
 });
 const io = require('socket.io')(http, corsOptions);
 
-const { initGame, gameLoop, getUpdatedVelocity, handleAttack } = require('./game');
+const { initGame, gameLoop, getUpdatedVelocity } = require('./game/game');
 const { FRAME_RATE } = require('./constants');
 const { makeId } = require('./utils');
-const newPlayer = require('./helpers/newPlayer');
+const newPlayer = require('./player/newPlayer');
+const { handleAttack } = require('./player/playerMove');
 
 const state = {};
 const clientRooms = {};

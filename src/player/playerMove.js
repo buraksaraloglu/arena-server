@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 const { GRID_SIZE } = require('../constants');
+const playerDamage = require('./playerDamage');
 
 const playerMove = (player) => {
   player.pos.x += player.vel.x;
@@ -58,20 +59,13 @@ const enemyNearby = (room, player) => {
   });
 };
 
-const handleDamage = (room, player) => {
-  const target = enemyNearby(room, player);
-  console.log(target);
-  if (target) {
-    target.map((targetPlayer) => {
-      if (targetPlayer.stats.health > 5 && player.stats.stamina >= 30) {
-        targetPlayer.stats.health -= player.stats.power || 5;
-      } else if (player.stats.stamina && player.stats.stamina < 30) {
-        targetPlayer.stats.health -= 5;
-      } else {
-        targetPlayer.stats.health = 0;
-      }
-    });
+const handleAttack = (room, client) => {
+  const player = room.players[client.number - 1];
+
+  if (player) {
+    reduceStamina(player);
+    playerDamage(room, player);
   }
 };
 
-module.exports = { playerMove, reduceStamina, handleDamage };
+module.exports = { playerMove, reduceStamina, handleAttack };
