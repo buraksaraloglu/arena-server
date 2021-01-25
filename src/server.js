@@ -120,29 +120,27 @@ io.on('connection', (client) => {
     if (numClients === 0) {
       client.emit('unknownCode');
       return;
-    }
-    if (numClients > 4) {
+    } else if (numClients + 1 > 4) {
       client.emit('tooManyPlayers');
-      client.emit('joined', false);
       return;
-    }
-
-    if (state[roomName].gameStatus !== 'started') {
-      clientRooms[client.id] = roomName;
-
-      client.join(roomName);
-      client.number = numClients + 1;
-
-      state[roomName].players.push(newPlayer(client.number, username));
-
-      client.emit('gameCode', roomName);
-      client.emit('init', client.number);
-      client.emit('joined', true);
-      io.sockets.in(roomName).emit('numClients', numClients + 1);
-      io.sockets.in(roomName).emit('voteCount', state[roomName].voteCount);
-      emitGameState(roomName, state[roomName]);
     } else {
-      client.emit('joined', false);
+      if (state[roomName].gameStatus !== 'started') {
+        clientRooms[client.id] = roomName;
+
+        client.join(roomName);
+        client.number = numClients + 1;
+
+        state[roomName].players.push(newPlayer(client.number, username));
+
+        client.emit('gameCode', roomName);
+        client.emit('init', client.number);
+        client.emit('joined', true);
+        io.sockets.in(roomName).emit('numClients', numClients + 1);
+        io.sockets.in(roomName).emit('voteCount', state[roomName].voteCount);
+        emitGameState(roomName, state[roomName]);
+      } else {
+        client.emit('joined', false);
+      }
     }
   };
 
