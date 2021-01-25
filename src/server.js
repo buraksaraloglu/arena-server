@@ -104,6 +104,7 @@ io.on('connection', (client) => {
     client.emit('init', 1);
     client.emit('numClients', 1);
     client.emit('voteCount', 0);
+    emitGameState(roomName, state[roomName]);
     client.emit('gameStatus', state[roomName].gameStatus);
   };
 
@@ -132,6 +133,7 @@ io.on('connection', (client) => {
       client.emit('joined', true);
       io.sockets.in(roomName).emit('numClients', numClients + 1);
       io.sockets.in(roomName).emit('voteCount', state[roomName].voteCount);
+      emitGameState(roomName, state[roomName]);
     } else {
       client.emit('joined', false);
     }
@@ -161,6 +163,10 @@ io.on('connection', (client) => {
   client.on('newGame', handleNewGame);
   client.on('joinGame', handleJoinGame);
   client.on('startVote', handleStartVote);
+});
+
+io.on('disconnect', (client) => {
+  console.log(client);
 });
 
 const port = process.env.PORT || 8080;
