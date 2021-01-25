@@ -1,15 +1,15 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-param-reassign */
-const corsOptions = {
-  cors: {
-    origins: '*',
-  },
-};
 const app = require('express')();
 const http = require('http').createServer(app, (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
 });
-const io = require('socket.io')(http, corsOptions);
+const io = require('socket.io')(http, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+});
 
 const { initGame, gameLoop, getUpdatedVelocity } = require('./game/game');
 const { FRAME_RATE } = require('./constants');
