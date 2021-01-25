@@ -34,7 +34,6 @@ const getClientCount = (roomName) => {
 
 const emitGameState = (room, singleGameState) => {
   const numClients = getClientCount(room);
-  // Send this event to everyone in the room.
   io.sockets.in(room).emit('gameState', JSON.stringify(singleGameState));
   io.sockets.in(room).emit('numClients', numClients);
 
@@ -163,10 +162,6 @@ io.on('connection', (client) => {
   client.on('newGame', handleNewGame);
   client.on('joinGame', handleJoinGame);
   client.on('startVote', handleStartVote);
-});
-
-io.on('disconnect', (client) => {
-  console.log(client);
 });
 
 const port = process.env.PORT || 8080;

@@ -2,21 +2,21 @@ const { GRID_SIZE } = require('../constants');
 
 const calculatePosition = (id) => {
   if (id === 1) {
-    return { x: 1, y: 1 };
+    return { x: 2, y: 2 };
   } else if (id === 2) {
     return {
-      x: GRID_SIZE - 2,
-      y: GRID_SIZE - 2,
+      x: GRID_SIZE - 3,
+      y: GRID_SIZE - 3,
     };
   } else if (id === 3) {
     return {
-      x: 1,
-      y: GRID_SIZE - 2,
+      x: 2,
+      y: GRID_SIZE - 3,
     };
   } else if (id === 4) {
     return {
-      x: GRID_SIZE - 2,
-      y: 1,
+      x: GRID_SIZE - 3,
+      y: 2,
     };
   } else return null;
 };
