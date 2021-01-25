@@ -45,30 +45,22 @@ const reduceStamina = (player) => {
 };
 
 const enemyNearby = (room, player) => {
-  return room.players.filter((target) => {
-    return (
-      (player.pos.x - target.pos.x === 0 && player.pos.y - target.pos.y === -1) ||
-      (player.pos.x - target.pos.x === 0 && player.pos.y - target.pos.y === 1) ||
-      (player.pos.x - target.pos.x === -1 && player.pos.y - target.pos.y === 0) ||
-      (player.pos.x - target.pos.x === 1 && player.pos.y - target.pos.y === 0) ||
-      (player.pos.x - target.pos.x === -1 && player.pos.y - target.pos.y === -1) ||
-      (player.pos.x - target.pos.x === 1 && player.pos.y - target.pos.y === -1) ||
-      (player.pos.x - target.pos.x === -1 && player.pos.y - target.pos.y === 1) ||
-      (player.pos.x - target.pos.x === 1 && player.pos.y - target.pos.y === 1) ||
-      (player.pos.x - target.pos.x === 0 && player.pos.y - target.pos.y === -2) ||
-      (player.pos.x - target.pos.x === 0 && player.pos.y - target.pos.y === 2) ||
-      (player.pos.x - target.pos.x === -2 && player.pos.y - target.pos.y === 0) ||
-      (player.pos.x - target.pos.x === 2 && player.pos.y - target.pos.y === 0) ||
-      (player.pos.x - target.pos.x === -2 && player.pos.y - target.pos.y === -2) ||
-      (player.pos.x - target.pos.x === 2 && player.pos.y - target.pos.y === -2) ||
-      (player.pos.x - target.pos.x === -2 && player.pos.y - target.pos.y === 2) ||
-      (player.pos.x - target.pos.x === 2 && player.pos.y - target.pos.y === 2)
-    );
+  return room.players.filter((targetPlayer) => {
+    if (targetPlayer.id !== player.id) {
+      for (let i = -2; i <= 2; i++) {
+        for (let j = -2; j <= 2; j++) {
+          if (player.pos.x - targetPlayer.pos.x === i && player.pos.y - targetPlayer.pos.y === j) {
+            return targetPlayer;
+          }
+        }
+      }
+    }
   });
 };
 
 const handleDamage = (room, player) => {
   const target = enemyNearby(room, player);
+  console.log(target);
   if (target) {
     target.map((targetPlayer) => {
       if (targetPlayer.stats.health > 5 && player.stats.stamina >= 30) {
