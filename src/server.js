@@ -8,11 +8,13 @@ const corsOptions = {
     pingInterval: 3000,
     cookie: 'mycookie',
     httpCompression: true,
-    origins: '*:*',
+    origins: '*',
   },
 };
 const app = require('express')();
-const http = require('http').createServer(app);
+const http = require('http').createServer(app, (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+});
 const io = require('socket.io')(http, corsOptions);
 
 const { initGame, gameLoop, getUpdatedVelocity, handleAttack } = require('./game');
