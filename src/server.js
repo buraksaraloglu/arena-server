@@ -1,13 +1,15 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-param-reassign */
 const corsOptions = {
-  allowUpgrades: true,
-  transports: ['polling', 'websocket'],
-  pingTimeout: 9000,
-  pingInterval: 3000,
-  cookie: 'mycookie',
-  httpCompression: true,
-  origins: '*:*',
+  cors: {
+    allowUpgrades: true,
+    transports: ['polling', 'websocket'],
+    pingTimeout: 9000,
+    pingInterval: 3000,
+    cookie: 'mycookie',
+    httpCompression: true,
+    origins: '*:*',
+  },
 };
 const app = require('express')();
 const http = require('http').createServer(app);
