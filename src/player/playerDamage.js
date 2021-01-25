@@ -1,5 +1,7 @@
+const getNearbyEnemies = require('../helpers/getNearbyEnemies');
+
 const playerDamage = (room, player) => {
-  const target = enemyNearby(room, player);
+  const target = getNearbyEnemies(room, player);
   console.log(target);
   if (target) {
     target.map((targetPlayer) => {
